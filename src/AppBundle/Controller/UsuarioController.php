@@ -94,7 +94,7 @@ class UsuarioController extends Controller
             'accion' => 'crear_usuario',
             'validation_groups' => array('default', 'registro'),
         ));
-        $formulario->handleRequest($request);
+        $formulario->handleRequest($request);  //despues del submit
 
         if ($formulario->isValid()) {
             $this->get('app.manager.usuario_manager')->guardar($usuario);
@@ -122,7 +122,10 @@ class UsuarioController extends Controller
      */
     public function perfilAction(Request $request)
     {
-        $usuario = $this->getUser();
+        //$usuario = $this->getUser();
+
+        $usuario = $this->get('security.context')->getToken()->getUser();
+
         $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
 
         $formulario->handleRequest($request);

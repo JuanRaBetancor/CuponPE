@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new AppBundle\AppBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new CuponOfertaBundle\CuponOfertaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

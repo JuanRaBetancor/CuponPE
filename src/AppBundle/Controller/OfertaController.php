@@ -38,6 +38,8 @@ class OfertaController extends Controller
         $oferta = $em->getRepository('AppBundle:Oferta')->findOferta($ciudad, $slug);
         $cercanas = $em->getRepository('AppBundle:Oferta')->findCercanas($ciudad);
 
+        $reciente = $em->getRepository('AppBundle:Oferta')->findOfertaReciente($ciudad,$slug);
+
         if (!$oferta) {
             throw $this->createNotFoundException('No se ha encontrado la oferta solicitada');
         }
@@ -45,6 +47,7 @@ class OfertaController extends Controller
         return $this->render('oferta/detalle.html.twig', array(
             'cercanas' => $cercanas,
             'oferta' => $oferta,
+            'reciente' => $reciente
         ));
     }
 }

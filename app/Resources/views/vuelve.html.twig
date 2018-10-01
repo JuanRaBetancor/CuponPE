@@ -1,0 +1,21 @@
+{% extends 'frontend.html.twig' %}
+
+{% block id 'portada' %}
+{% block title 'Cupon, cada día ofertas increíbles en tu ciudad con descuentos de hasta el 90%' %}
+
+
+{% block prueba %}
+    <div id="anuncio" style="margin-top: 1%;">
+        <h1>Vuelve cuando Quieras!</h1>
+    </div>
+{% endblock %}
+
+
+{% block aside %}
+    {{ parent() }}
+
+    {# bloque vacío para eliminar su contenido y no mostrarlo en la portada #}
+    {% block registrate %}{% endblock %}
+
+    {{ include('comun/_sobre_nosotros.html.twig') }}
+{% endblock %}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portada | Cupon </title>
+</head>
+<body id="portada">
+     <div id="contenedor">
+         <header>
+             <h1>
+                 <a href="{{ path('portada') }}">CUPON</a>
+             </h1>
+             <nav>
+                 <ul>
+                     <li><a href="{{ path('portada') }}">Oferta del día</a></li>
+                     <li><a href="#">Ofertas recientes</a></li>
+                     <li><a href="#">Mis ofertas</a></li>
+                 </ul>
+             </nav>
+         </header>
+
+
+         <article class="oferta">
+             <section class="descripcion">
+                 <h1><a href="#">{{ oferta.nombre }}</a></h1>
+                 {{ oferta.descripcion }}
+                 <a href="#" class="boton">Comprar</a>
+             </section>
+
+             <section class="galeria">
+                 <img src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="Foto de la oferta">
+                 <p class="precio"> {{ oferta.precio }} &euro; <span>{{ oferta.descuento }}</span></p>
+                 <p><strong>Condiciones:</strong>{{ oferta.condiciones }}</p>
+             </section>
+
+
+             <section class="estado">
+                 <div class="tiempo">
+                     <strong>Faltan:</strong>{{ oferta.fechaExpiracion | date() }}
+                 </div>
+
+
+                 <div class="compras">
+                     <strong>Compras</strong>: {{ oferta.compras }}
+                 </div>
+
+
+                 <div class="faltan">
+                     {% set faltan = oferta.umbral - oferta.compras %}
+                     {% if faltan > 0  %}
+                     Faltan <strong>{{ faltan }} compras</strong><br/>
+                     para activar la oferta
+                     {% else %}
+                     <strong>Oferta activada</strong> por superar las <strong>{{ oferta.umbral }}</strong> compras necesarias
+                 </div>
+             </section>
+
+
+             <section class="direccion">
+                 <h2>Disfruta de la oferta en</h2>
+                 <p>
+                     <a href="#"> {{ oferta.tienda.nombre }} </a>
+                     {{ oferta.tienda.direccion }}
+                 </p>
+             </section>
+
+             <section class="tienda">
+                 <h2>Sobre la tienda</h2>
+                 {{ oferta.tienda.descripcion }}
+             </section>
+         </article>
+
+         <aside>
+             ## FORMULARIO DE LOGIN ##
+             <section id="nosotros">
+                 <h2>Sobre nosotros</h2>
+                 <p>Lorem ipsum...........</p>
+             </section>
+         </aside>
+
+         <footer>
+             &copy; 2018 - Cupon
+             <a href="{{ 'path(pagina_estatica', {'pagina':'ayuda'}) }}">Ayuda</a>
+             <a href="{{ 'path(pagina_estatica', {'pagina':'contacto'}) }}">Contacto</a>
+             <a href="{{ 'path(pagina_estatica', {'pagina':'privacidad'}) }}">Privacidad</a>
+             <a href="{{ 'path(pagina_estatica', {'pagina':'about'}) }}">About</a>
+         </footer>
+     </div>
+
+</body>
+</html>

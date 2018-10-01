@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -403,6 +404,29 @@ class Usuario implements UserInterface
                 ->addViolation();
         }
     }
+
+
+
+    public function esDniValido2 (ExecutionContext $context){
+
+        $dni = $this.getDni();
+
+        if(preg_match("/\d{1,8}[a-z]/i", $dni)){
+            $context->addViolationAt('dni','El DNI introducido no es correcto', array(), null);
+            return;
+        }
+
+        $numero =substr($dni, 0, -1);
+        $letra = strtoupper(substr($dni, -1));
+        if($letra != substr('TRWAGMYFPDXBNJZSQVHLCKE', strtr($numero, "XYZ", "012")%23,1)){
+            $context->addViolationAt('dni','La letra no coincide', array(), null);
+        }
+    }
+
+
+
+
+
 
     /**
      * @Assert\IsTrue(message = "Debes tener al menos 18 años para registrarte en el sitio")

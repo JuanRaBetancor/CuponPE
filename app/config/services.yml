@@ -25,7 +25,7 @@ services:
             - { name: kernel.event_listener, event: security.interactive_login }
             - { name: kernel.event_listener, event: kernel.response }
 
-    app.twig.cupon_extension:
+    twig.cupon_extension:
         class: AppBundle\Twig\Extension\CuponExtension
         tags:
             - { name: twig.extension }
@@ -34,3 +34,21 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+
+    intl.twig.extension:
+        class: Twig_Extensions_Extension_Intl
+        tags:  [{ name: 'twig.extension' }]
+
+
+
+    #twig.extension.debug:
+    #    class: Twig_Extensions_Extension_Debug
+    #    tags:
+    #        - { name: twig.extension }

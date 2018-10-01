@@ -1,3 +1,5 @@
+
+
 _backend:
     resource: '@EasyAdminBundle/Controller/'
     type:     annotation
@@ -8,7 +10,7 @@ app:
     type:     annotation
     prefix:   /{_locale}
     requirements:
-        _locale: en|es
+        _locale: en|es|ja
     defaults:
         _locale: '%locale%'
 
@@ -23,6 +25,30 @@ _extranet:
 _portada:
      path:  /
      defaults:
-          _controller: FrameworkBundle:Redirect:redirect
+          _controller: AppBundle:Redirect:redirect
           route: portada
           ciudad: '%app.ciudad_por_defecto%'
+     requirements:
+          _format: html|rss
+
+vuelve:
+     path: /vuelve-pronto.{_format}
+     defaults:
+         _controller: AppBundle:Default:vuelve
+         route: vuelve
+         _format: html
+
+ #oferta:
+ #     path: /{ciudad}/ofertas/{slug}
+ #     defaults:
+ #          _controller: AppBundle:Oferta:oferta
+
+
+#pagina_oferta:
+#      path:  /ayuda
+#      defaults: { _controller: CuponOfertaBundle:Default:ayuda }
+#
+#pagina_estatica:
+#      path:  /sitio/{pagina}
+#      defaults: { _controller: CuponOfertaBundle:Sitio:estatica }
+

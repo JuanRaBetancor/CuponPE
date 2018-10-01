@@ -4,6 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: admin.yml }
 
+
 # Parámetros globales del contenedor de dependencias
 parameters:
     app.ciudad_por_defecto:  'barcelona'
@@ -51,6 +52,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping:                true
+        #Solución problema trnslatable chain: https://stackoverflow.com/questions/24405549/symfony2-translatable-field-the-class-gedmo-translatable-entity-translation
+        mappings:
+            translatable:
+                type: annotation
+                is_bundle: false
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias: GedmoTranslatable
 
 # Configuración de Swiftmailer
 swiftmailer:
@@ -65,3 +74,23 @@ vich_uploader:
         fotos_ofertas:
             uri_prefix:         '%app.ruta.fotos_ofertas%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/'
+
+
+
+stof_doctrine_extensions:
+    default_locale: es
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
+
+
+# Los services que iban aquí en la 2.3 ahora van en services.yml en la 2.8
+
+#services:
+#    twig.extension.text:
+#    class: Twig_Extensions_Extension_Text
+#    tags: - { name: twig.extension }
+#    twig.extension.debug:
+#    class: Twig_Extensions_Extension_Debug
+#    tags: - { name: twig.extension }

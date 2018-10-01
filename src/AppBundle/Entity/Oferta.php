@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfertaRepository")
@@ -22,6 +24,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Oferta
 {
+
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -31,7 +39,7 @@ class Oferta
 
     /**
      * @ORM\Column(type="string")
-     *
+     * @Gedmo\Translatable
      * @Assert\NotBlank()
      */
     protected $nombre;
@@ -45,7 +53,7 @@ class Oferta
 
     /**
      * @ORM\Column(type="text")
-     *
+     * @Gedmo\Translatable
      * @Assert\NotBlank()
      * @Assert\Length(min = 30)
      */
@@ -53,6 +61,7 @@ class Oferta
 
     /**
      * @ORM\Column(type="text")
+     * @Gedmo\Translatable
      */
     protected $condiciones;
 
@@ -431,6 +440,13 @@ class Oferta
     {
         return $this->tienda;
     }
+
+
+    public function setTranslatableLocale($locale){
+        $this->locale = $locale;
+    }
+
+
 
     /**
      * @Assert\IsTrue(message = "La fecha de expiración debe ser posterior a la fecha de publicación")

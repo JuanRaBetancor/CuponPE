@@ -30,7 +30,7 @@ class CiudadController extends Controller
      *
      * @return Response
      */
-    public function listaCiudadesAction($ciudad = null)
+    public function listaCiudadesAction($ciudad) //Antes estaba $ciudad = null
     {
         $em = $this->getDoctrine()->getManager();
         $ciudades = $em->getRepository('AppBundle:Ciudad')->findListaCiudades();
@@ -85,7 +85,7 @@ class CiudadController extends Controller
 
         $formato = $request->getRequestFormat();
 
-        return $this->render('ciudad/recientes.'.$formato.'.twig', array(
+        return $this->render('ciudad/recientes.'.$formato.'.twig.', array(
             'ciudad' => $ciudad,
             'cercanas' => $cercanas,
             'ofertas' => $ofertas,

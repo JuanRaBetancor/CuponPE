@@ -39,6 +39,32 @@ class OfertaRepository extends EntityRepository
         return $consulta->getOneOrNullResult();
     }
 
+
+
+
+
+
+    public function findOfertaReciente($ciudad, $slug){
+        $em = $this->getEntityManager();
+
+        $consulta = $em->createQuery('SELECT o, c, t 
+                                           FROM AppBundle:Oferta o JOIN o.ciudad c JOIN o.tienda t 
+                                           WHERE o.revisada = true AND o.fechaPublicacion < :fecha AND o.slug = :slug AND c.slug = :ciudad
+                                           ORDER BY o.fechaPublicacion ASC');
+
+        $consulta->setParameter('slug', $slug);
+        $consulta->setParameter('ciudad', $ciudad);
+        $consulta->setMaxResults(1);
+        $consulta->setParameter('fecha', new \DateTime('today'));
+
+        return $consulta->getOneOrNullResult();
+    }
+
+
+
+
+
+
     /**
      * Encuentra la oferta del día en la ciudad indicada.
      *
@@ -99,8 +125,8 @@ class OfertaRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         $consulta = $em->createQuery('
-            SELECT o, t
-            FROM AppBundle:Oferta o JOIN o.tienda t
+            SELECT o
+            FROM AppBundle:Oferta o 
             WHERE o.revisada = true AND o.fechaPublicacion < :fecha AND o.ciudad = :id
             ORDER BY o.fechaPublicacion DESC
         ');

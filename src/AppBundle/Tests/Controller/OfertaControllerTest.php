@@ -127,4 +127,19 @@ class OfertaControllerTest extends WebTestCase
             );
         }
     }
+
+
+    //public function testLosUsuariosAnonimosVenLaCiudadPorDefecto(){
+    //    $client = static::createClient();
+    //    $client->followRedirects(true);
+    //
+    //    $crawler = $client->request('GET','/');
+    //    $ciudadPorDefecto = $client->getContainer()->getParameter('cupon.ciudad_por_defecto');
+    //    $ciudadPortada = $crawler->filter('header nav select option[selected="selected"]')->attr('value');
+    //    $this->assertEquals($ciudadPorDefecto,$ciudadPortada, 'Los usuarios anónimos ven selccionada la ciudad por defecto');
+    //
+    //
+    //}
+
+
 }

@@ -31,4 +31,13 @@
             reprehenderit in voluptate velit esse cillum dolore eu fugiat.
         </p>
     </section>
+
+    <section id="condiciones">
+        <h2>Oferta reciente</h2>
+        {% if reciente %}
+            <p>{{ reciente.nombre | truncate(7, true) }}</p>
+            <p> {{ reciente.descripcion | wordwrap(40) | nl2br }} </p>
+        {% endif %}
+    </section>
+
 {% endblock %}
