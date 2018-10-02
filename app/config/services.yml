@@ -48,6 +48,12 @@ services:
 
 
 
+    app.security.owner_voter:
+        class: AppBundle\Security\OwnerVoter
+        tags:
+            - { name: security.ownervoter }
+
+
     #twig.extension.debug:
     #    class: Twig_Extensions_Extension_Debug
     #    tags:
