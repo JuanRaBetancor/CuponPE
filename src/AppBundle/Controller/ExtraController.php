@@ -26,4 +26,24 @@ class ExtraController extends Controller
     }
 
 
+    public function portadaAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $tienda = $this->get('security.context')->getToken()->getUser();
+
+        $ofertas = $em->getRepository('AppBundle:Tienda')->findOfertasRecientes($tienda->getId(), 50);
+
+        return $this->render('extranet/portad.html.twig', array('ofertas' => $ofertas));
+    }
+
+
+    public function ofertaVentasAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $ventas = $em ->getRepository('AppBundle:Oferta')->findVentasByOferta2($id);
+        return $this->render('extranet/vent.html.twig', array(
+           'ofertas'=>$ventas[0]->getOferta(), 'ventas'=> $ventas
+        ));
+    }
+
+
 }
