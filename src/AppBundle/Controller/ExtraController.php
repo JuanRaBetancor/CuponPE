@@ -4,6 +4,12 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Oferta;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ExtraController extends Controller
 {
@@ -41,7 +47,43 @@ class ExtraController extends Controller
         $em = $this->getDoctrine()->getManager();
         $ventas = $em ->getRepository('AppBundle:Oferta')->findVentasByOferta2($id);
         return $this->render('extranet/vent.html.twig', array(
-           'ofertas'=>$ventas[0]->getOferta(), 'ventas'=> $ventas
+           'oferta'=>$ventas[0]->getOferta(), 'ventas'=> $ventas
+        ));
+    }
+
+    public function perfilAction(Request $request){
+        $tienda = $this->get('security.token_storage')->getToken()->getUser();
+        $formulario = $this->createForm('AppBundle\Form\Extranet\TiendaType', $tienda);
+
+
+        $passwordOriginal = $formulario->getData()->getPassword();
+
+        $formulario->handleRequest($request);
+
+        if ($formulario->isValid()) {
+            //$this->get('app.manager.tienda_manager')->guardar($tienda);
+
+            if($tienda->getPassword() == null){
+                $tienda->setPassword($passwordOriginal);
+            }else{
+                $encoder = $this->get('security.encoder_factory')->getEncoder($tienda);
+                $passwordCodificado = $encoder->encodePassword($tienda->getPassword(),$tienda->getSalt());
+                $tienda->setPassword($passwordCodificado);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tienda);
+            $em->flush();
+
+
+            $this->addFlash('info', 'Los datos de tu perfil se han actualizado correctamente');
+
+            return $this->redirectToRoute('extranet_perfil');
+        }
+
+        return $this->render('extranet/perfi.html.twig', array(
+            'tienda' => $tienda,
+            'formulario' => $formulario->createView(),
         ));
     }
 

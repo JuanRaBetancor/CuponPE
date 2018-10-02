@@ -1,7 +1,7 @@
-{% extends '::extranet.html.twig' %}
+{% extends '::extra.html.twig' %}
 {%  block id 'portada' %}
 
-{% block title %}Administración de {{ app.user.name }}{% endblock %}
+{% block title %}Administración de {{ app.user.login }}{% endblock %}
 
 {% block article %}
 <h1>Todas tus ofertas</h1>
@@ -36,7 +36,7 @@
             <ul>
                 {% if oferta.compras > 0 %}
                 <li>
-                    <a href="{{ path('extranet_oferta_ventas', {'id': oferta.od}) }}">Lista de Ventas</a>
+                    <a href="{{ path('extranet_oferta_ventas', {'id': oferta.id}) }}">Lista de Ventas</a>
                 </li>
                 {% endif %}
 
