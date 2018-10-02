@@ -1,5 +1,3 @@
-
-
 _backend:
     resource: '@EasyAdminBundle/Controller/'
     type:     annotation
@@ -37,6 +35,11 @@ vuelve:
          _controller: AppBundle:Default:vuelve
          route: vuelve
          _format: html
+
+
+Extranet:
+     resource: '@AppBundle/Resources/config/extranet/routing.yml'
+     prefix:   /extranet
 
  #oferta:
  #     path: /{ciudad}/ofertas/{slug}

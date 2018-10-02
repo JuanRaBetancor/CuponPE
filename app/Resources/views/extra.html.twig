@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/normalizar.css') }}" type="text/css" >
+    <link rel="stylesheet" href="{{ asset('css/comun.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/extranet.css') }}" type="text/css">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1><a href="{{ path('extranet_portada') }}">CUPON EXTRANET</a></h1>
+    <nav><ul>
+            <li><a href="{{ path('extranet_portada') }}">Ofertas</a></li>
+            <li><a href="{{ path('extranet_perfil') }}">Mis Datos</a></li>
+            <li><a href="#">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+
+    <p>Teléfono de atención al cliente <strong>902 222 222</strong></p>
+</header>
+
+<article>
+    {% block article %}{% endblock %}
+</article>
+
+<aside>
+    {% block aside %}
+    <a href="{{ path('extranet_oferta_nueva') }}" class="boton">Añadr oferta</a>
+    <section id="faq">
+        <h2>Preguntas frecuentes</h2>
+        <dl>
+            <dt>asfiosahgoirgaprishgrpighdsprig</dt>
+            <dd>rohgoirhgoirhgirhgoirhgoihrogiheg</dd>
+            <dt>seuhfsouhfgsaoighhfsoehsoghsoigh</dt>
+            <dd>rogjojerogjreojgorjgorjgjrogorjgr</dd>
+            <dt>osjfporjesgdrgjpdorjgodrjgoasjgpo</dt>
+            <dd>rggrrghy8yghe8hgver08gr0e9yghrere</dd>
+        </dl>
+    </section>
+    {% endblock %}
+</aside>
+{% endblock %}
