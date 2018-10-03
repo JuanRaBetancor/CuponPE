@@ -134,5 +134,56 @@ class ExtraController extends Controller
     }
 
 
+    public function ofertaEditarAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
+
+        if(!$oferta){
+            throw $this->createNotFoundException('La oferta no existe');
+        }
+
+        $contexto = $this->get('security.context');
+        if($contexto->isGranted('ROLE_EDITAR_TIENDA', $oferta)){
+            throw new AccessDeniedException();
+        }
+
+        if($oferta->getRevisada()){
+            $this->get('session')->getFlashBag()->add('error','La oferta no se puede modificar porque ya ha sido revisada');
+            return $this->redirect($this->generateUrl('extranet_portada'));
+        }
+
+        $formulario = $this->createForm(new OfertaType(), $oferta);
+
+        $rutaFotoOriginal = $formulario->getData()->getRutaFoto();
+
+        $formulario->handleRequest($request);
+
+        if($formulario->isValid()){
+            if($oferta->getFoto()==null){
+                $oferta->setRutaFoto($rutaFotoOriginal);
+            }else{
+                $directorioFotos = $this->container->getParameter('app.ruta.fotos_ofertas');
+                $this->get('app.manager.oferta_manager')->guardar($oferta);
+                //unlink($directorioFotos,$rutaFotoOriginal);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($oferta);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('extranet_portada'));
+        }
+
+        return $this->render(
+            'extranet/oferta.html.twig', array(
+            'accion' => 'editar',
+            'oferta' => $oferta,
+            'formulario' => $formulario->createView(),
+        ));
+
+
+    }
+
+
 
 }
