@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\OfertaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,6 +87,52 @@ class ExtraController extends Controller
             'formulario' => $formulario->createView(),
         ));
     }
+
+
+    public function ofertaNuevaAction(Request $request)
+    {
+        /**
+        $peticion = $this->getRequest();
+        $oferta = new Oferta();
+        $formulario = $this->createForm(new OfertaType(), $oferta);
+        $formulario->handleRequest($peticion);
+
+        if($formulario->isValid()){
+            $tienda = $this->get('security.context')->getToken()->getUser();
+            $oferta->setCompras(0);
+            $oferta->setTienda($tienda);
+            $oferta->setCiudad($tienda->getCiudad());
+
+            $oferta->subirFoto();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($oferta);
+            $em->flush();
+            return $this->redirect($this->generateUrl('extranet_portada'));
+        }
+
+        return $this->render('extranet/formulario.html.twig', array('formulario'=>$formulario->createView()));
+        */
+
+        $tienda = $this->get('security.token_storage')->getToken()->getUser();
+
+        $oferta = Oferta::crearParaTienda($tienda);
+        $formulario = $this->createForm('AppBundle\Form\OfertaType', $oferta, array('mostrar_condiciones' => true));
+        $formulario->handleRequest($request);
+
+        if ($formulario->isValid()) {
+            $this->get('app.manager.oferta_manager')->guardar($oferta);
+
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        return $this->render(
+            'extranet/oferta.html.twig', array(
+            'accion' => 'crear',
+            'formulario' => $formulario->createView(),
+        ));
+    }
+
 
 
 }

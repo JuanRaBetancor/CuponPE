@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfertaRepository")
@@ -458,5 +459,19 @@ class Oferta
         }
 
         return $this->fechaExpiracion > $this->fechaPublicacion;
+    }
+
+
+    public function subirFoto()
+    {
+        if($this->foto === null){
+            return;
+        }
+
+        $directorioDestino = __DIR__.'/../../../../web/uploads/images';
+        $nombreArchivoFoto = uniqid('cupon-').'-foto1.jpg';
+        $this->foto->move($directorioDestino,$nombreArchivoFoto);
+        $this->setRutaFoto($nombreArchivoFoto);
+
     }
 }
