@@ -45,7 +45,15 @@
             {{ form_widget(formulario.umbral) }}
         </div>
 
-        {{ form_rest(formulario) }}
+        <div>
+            {{ form_errors(formulario.acepto) }}
+            {{ form_widget(formulario.acepto) }}
+            <span>
+                Declaro que toda la información
+                de esta oferta es correcta, que me comprometo a cumplir las condiciones
+                prometidas y que dispongo de los medios necesarios para hacerlo
+            </span>
+        </div>
 
         <input type="submit" class="boton" value="Añadir oferta">
     </div>

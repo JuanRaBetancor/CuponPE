@@ -15,6 +15,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
+/*Listener*/
+use Symfony\Component\Form\FormEvents;
+use AppBundle\Listener\OfertaTypeListener;
+
+
 /**
  * Formulario para crear y manipular entidades de tipo Oferta.
  * Como se utiliza en la extranet, algunas propiedades de la entidad
@@ -48,6 +53,10 @@ class OfertaType extends AbstractType
                 )),
             ));
         }
+
+        $listener = new OfertaTypeListener();
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($listener, 'preSubmit'));
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

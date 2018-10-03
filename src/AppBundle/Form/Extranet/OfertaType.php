@@ -8,7 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface; //Deprecated a p
 
 class OfertaType extends AbstractType
 {
-
+    /*https://stackoverflow.com/questions/27225778/sf2-6-optionsresolverinterface-deprecated-and-abstracttypesetdefaultoptions*/
+    /*https://stackoverflow.com/questions/27225778/sf2-6-optionsresolverinterface-deprecated-and-abstracttypesetdefaultoptions*/
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
