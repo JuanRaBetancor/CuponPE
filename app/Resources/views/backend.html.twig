@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/normalizar.css')  }}" type="text/css">
+<link rel="stylesheet" href="{{ asset('css/comun.css')  }}" type="text/css">
+<link rel="stylesheet" href="{{ asset('css/backend.css')  }}" type="text/css">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1><a href="{{ path('backend_portada') }}">CUPON ADMIN</a></h1>
+    <nav>
+        <ul>
+            <li><a href="{{ path('backend_oferta') }}">Ofertas</a></li>
+            <li><a href="{{ path('backend_tienda') }}">Tiendas</a></li>
+            <li><a href="{{ path('backend_usuario') }}">Usuarios</a></li>
+            <li><a href="{{ path('backend_ciudad') }}">Ciudades</a></li>
+            <li>{{ render(controller('AppBundle:Ciudad:listaCiudades', {'ciudad': app.session.get('ciudad')})) }}</li>
+        </ul>
+    </nav>
+</header>
+
+<article>
+    {% block article %}{% endblock %}
+</article>
+{% endblock %}
