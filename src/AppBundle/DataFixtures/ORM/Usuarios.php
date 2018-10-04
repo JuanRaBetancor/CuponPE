@@ -60,10 +60,33 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
             $usuario->setCiudad($ciudad);
 
             // El 60% de los usuarios permite email
-            $usuario->setPermiteEmail((mt_rand(1, 1000) % 10) < 6);
+            //$usuario->setPermiteEmail((mt_rand(1, 1000) % 10) < 6);
+            $usuario->setPermiteEmail(false);
 
             $this->container->get('app.manager.usuario_manager')->guardar($usuario);
         }
+
+
+        $usuario = new Usuario();
+
+        $usuario->setNombre($this->getNombre());
+        $usuario->setApellidos($this->getApellidos());
+        $usuario->setEmail('jrulpgc@gmail.com');
+        $usuario->setPasswordEnClaro('1234');
+        $usuario->setDni($this->getDni());
+        $usuario->setNumeroTarjeta('1234567890123456');
+        $usuario->setFechaAlta(new \DateTime('now - '.mt_rand(1, 150).' days'));
+        $usuario->setFechaNacimiento(new \DateTime('now - '.mt_rand(7000, 20000).' days'));
+
+        $ciudad = $ciudades[array_rand($ciudades)];
+        $usuario->setDireccion($this->getDireccion($ciudad));
+        $usuario->setCiudad($ciudad);
+
+        // El 60% de los usuarios permite email
+        $usuario->setPermiteEmail(true);
+
+        $this->container->get('app.manager.usuario_manager')->guardar($usuario);
+
     }
 
     /**

@@ -63,10 +63,10 @@ doctrine:
 
 # Configuración de Swiftmailer
 swiftmailer:
-    transport: '%mailer_transport%'
+    transport: 'gmail'
     host:      '%mailer_host%'
-    username:  '%mailer_user%'
-    password:  '%mailer_password%'
+    username:  'pruebassmtp7@gmail.com'
+    password:  'qwertyuiop1.'
 
 vich_uploader:
     db_driver: orm
