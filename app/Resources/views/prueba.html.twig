@@ -1,0 +1,63 @@
+{% extends 'frontend.html.twig' %}
+
+{% block id 'prueba' %}
+{% block title 'Cupon, cada día ofertas increíbles en tu ciudad con descuentos de hasta el 90%' %}
+
+{% block article %}
+
+
+    <h1>Pruebas TWIG</h1>
+
+    {% set variable = '                PRUEBA' %}
+    {% set perfil = {
+        'nombre': 'Pepe',
+        'apellidos': 'García',
+        'perfiles': ['usuario','administrador'],
+        'edad': 27,
+        'validado': true
+    } %}
+
+    {% embed 'grid/3columnas.twig' %}
+        {% block contenido %}<h2>Nombre:  {{ perfil.nombre }}</h2>{% endblock %}
+        {% block lateral1 %}<h2>Apellidos: {{ perfil.apellidos }}</h2>{% endblock %}
+        {% block lateral2 %}
+            <h4>{{ "El usuario tiene %d perfiles" | format(perfil.perfiles|length)}}</h4>
+            {% for perf in perfil.perfiles %}
+                <h5>Perfil {{ loop.index }}: {{ perf }}</h5>
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+
+
+    {% embed 'grid/2columnas.twig' %}
+        {% block contenido1 %}<h2>Edad: {{ perfil.edad }}</h2>{% endblock %}
+        {% block contenido2 %}
+            {% if perfil.validado %}
+                <h3>El perfil está validado</h3>
+            {% else %}
+                <h3>El perfil NO está validado</h3>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+
+
+    {% embed 'grid/3columnas.twig' %}
+        {% block contenido %}<h4>Letra aleatoria: {{ random('a'..'z') }}</h4>{% endblock %}
+        {% block lateral1 %}<h4>{{ ciudad_por_defecto }}</h4>{% endblock %}
+        {% block lateral2 %}<h4>Letra aleatoria: {{ random('a'..'z') }}</h4>{% endblock %}
+    {% endembed %}
+
+    {% for letter in 'a'..'z' %}
+        * {{ letter }}
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block aside %}
+    {{ parent() }}
+
+    {% block registrate %}{% endblock %}
+
+    {{ include('comun/_sobre_nosotros.html.twig') }}
+{% endblock %}

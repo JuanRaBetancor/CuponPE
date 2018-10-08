@@ -34,3 +34,7 @@ extranet_login_check:
 
 extranet_logout:
     pattern: /logout
+
+
+registro_tienda:
+    pattern: /registro

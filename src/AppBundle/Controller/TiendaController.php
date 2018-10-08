@@ -10,6 +10,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Tienda;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,4 +63,30 @@ class TiendaController extends Controller
             'cercanas' => $cercanas,
         ));
     }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/registro", name="registro_tienda")
+     */
+    public function registroAction(Request $request){
+        $tienda = new Tienda();
+        $formulario = $this->createForm('AppBundle\Form\TiendaType', $tienda);
+        $formulario->handleRequest($request);  //despues del submit
+
+        if ($formulario->isValid()) {
+            $this->get('app.manager.tienda_manager')->guardar($tienda);
+
+            $this->addFlash('info', '¡Enhorabuena! Te has registrado correctamente en Cupon');
+
+            return $this->redirectToRoute('portada_extranet');
+        }
+
+        return $this->render('extranet/tienda_registro.html.twig', array(
+            'formulario' => $formulario->createView(),
+        ));
+
+    }
+
+
 }

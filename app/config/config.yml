@@ -35,6 +35,7 @@ twig:
     globals:
         ciudad_por_defecto: '%app.ciudad_por_defecto%'
 
+
 # Configuración de Doctrine
 doctrine:
     dbal:

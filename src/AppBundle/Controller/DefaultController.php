@@ -112,4 +112,9 @@ class DefaultController extends Controller
     }
 
 
+    public function pruebaAction(){
+        return $this->render('prueba.html.twig');
+    }
+
+
 }

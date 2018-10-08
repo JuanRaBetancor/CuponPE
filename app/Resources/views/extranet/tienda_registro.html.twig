@@ -1,0 +1,31 @@
+{% extends '::extra.html.twig' %}
+{% block title %}Ver/Modificar mis datos{% endblock %}
+{% block article %}
+    <form action="{{ path('extranet_perfil') }}" method="post">
+        <div>
+            {{ form_errors(formulario) }}
+            <div>
+                {{ form_row(formulario.nombre) }}
+            </div>
+            <div>
+                {{ form_label(formulario.login, 'Nombre de usuario') }}
+                {{ form_errors(formulario.login) }}
+                {{ form_widget(formulario.login) }}
+            </div>
+            <div>
+                {{ form_widget(formulario.password) }}
+                <p class="ayuda">Si quieres cambiar la pass, escríbela dos veces. Si no, dejalo en blanco.</p>
+            </div>
+            <div>
+                {{ form_label(formulario.descripcion, 'Descripcion') }}
+                {{ form_errors(formulario.descripcion) }}
+                {{ form_widget(formulario.descripcion) }}
+            </div>
+            <div>
+                {{ form_row(formulario.ciudad) }}
+            </div>
+            {{ form_rest(formulario) }}
+            <input type="submit" value="Guardar Cambios" class="boton">
+        </div>
+    </form>
+{% endblock %}
