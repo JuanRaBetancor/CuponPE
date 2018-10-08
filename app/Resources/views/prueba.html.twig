@@ -42,7 +42,7 @@
 
 
     {% embed 'grid/3columnas.twig' %}
-        {% block contenido %}<h4>Letra aleatoria: {{ random('a'..'z') }}</h4>{% endblock %}
+        {% block contenido %}<h4>{{ app.request.server.get('HTTP_HOST') }}</h4>{% endblock %}
         {% block lateral1 %}<h4>{{ ciudad_por_defecto }}</h4>{% endblock %}
         {% block lateral2 %}<h4>Letra aleatoria: {{ random('a'..'z') }}</h4>{% endblock %}
     {% endembed %}
