@@ -95,3 +95,6 @@ stof_doctrine_extensions:
 #    twig.extension.debug:
 #    class: Twig_Extensions_Extension_Debug
 #    tags: - { name: twig.extension }
+
+jms_debugging:
+     auto_help: false

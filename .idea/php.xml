@@ -52,6 +52,7 @@
       <path value="$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle" />
       <path value="$PROJECT_DIR$/vendor/beberlei/DoctrineExtensions" />
       <path value="$PROJECT_DIR$/vendor/ideup/simple-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jms/debugging-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.3.0" />

@@ -28,7 +28,7 @@ services:
     twig.cupon_extension:
         class: AppBundle\Twig\Extension\CuponExtension
         tags:
-            - { name: twig.extension }
+            - { name: twig.extension } #sin esto no funciona, es necesario
 
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
